@@ -266,15 +266,15 @@
   <!-- TOP Nav Bar END -->
 </template>
 <script>
-import SideBarItems from '~/FackApi/json/SideBar'
+import SideBarItems from '~/fack_api/json/SideBar'
 import { mapGetters } from 'vuex'
-import Lottie from '../../../components/socialvue/lottie/Lottie'
+import Lottie from '~/components/lottie/Lottie'
 export default {
   name: 'NavBarStyle1',
   props: {
     homeURL: { type: Object, default: () => ({ name: 'layout1.dashboard' }) },
     title: { type: String, default: 'Dashboard' },
-    logo: { type: String, default: require('../../../assets/images/logo.png') },
+    logo: { type: String, default: require('~/assets/images/logo.png') },
     horizontal: { type: Boolean, default: false },
     items: { type: Array }
   },
@@ -297,22 +297,22 @@ export default {
       showMenu: false,
       userFriendRequest: [
         {
-          img: require('../../../assets/images/user/05.jpg'),
+          img: require('~/assets/images/user/05.jpg'),
           name: 'Jaques Amole',
           friend: '40  friends'
         },
         {
-          img: require('../../../assets/images/user/06.jpg'),
+          img: require('~/assets/images/user/06.jpg'),
           name: 'Lucy Tania',
           friend: '12  friends'
         },
         {
-          img: require('../../../assets/images/user/07.jpg'),
+          img: require('~/assets/images/user/07.jpg'),
           name: 'Val Adictorian',
           friend: '0  friends'
         },
         {
-          img: require('../../../assets/images/user/08.jpg'),
+          img: require('~/assets/images/user/08.jpg'),
           name: 'Manny Petty',
           friend: '3  friends'
         }

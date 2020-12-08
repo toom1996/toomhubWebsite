@@ -67,9 +67,8 @@ export const socialvue = {
   },
   loaderInit () {
     let load = document.getElementById('loading')
-    console.log(load)
     animation.fadeOut(load, { duration: 0 })
-    animation.fadeOut(load, { duration: 1400 })
+    animation.fadeOut(load, { duration: 500 })
     setTimeout(() => {
       load.classList.add('d-none')
     }, 2000)

@@ -1,10 +1,20 @@
 <template>
   <div>
-    <Nuxt />
-    <Loader />
+    <!-- <Loader /> -->
     <div class="wrapper">
       <!-- Sidebar  -->
       <SideBarStyle1 :items="verticalMenu" :logo="logo" @toggle="sidebarMini" />
+      <!-- TOP Nav Bar -->
+      <NavBarStyle1 title="Dashboard" :homeURL="{ name: 'dashboard1.home' }" @toggle="sidebarMini" :logo="logo">
+      </NavBarStyle1>
+      <!-- Page Content -->
+      <div id="content-page" class="content-page">
+        <div class="container">
+          <div class="row">
+            <Nuxt />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -12,6 +22,7 @@
 <script>
 import Loader from '~/components/loader/Loader'
 import SideBarStyle1 from '~/components/sidebars/SideBarStyle1'
+import NavBarStyle1 from '~/components/navbars/NavBarStyle1'
 import loader from '~/assets/images/logo.png'
 import SideBarItems from '~/fack_api/json/SideBar'
 import { socialvue } from '~/config/pluginInit'
@@ -22,6 +33,12 @@ export default {
   },
   mounted () {
     this.logo = loader
+    // socialvue.index()
+     this.$nextTick(() => {
+      this.$nuxt.$loading.start()
+
+      setTimeout(() => this.$nuxt.$loading.finish(), 500)
+    })
   },
   data () {
     return {
