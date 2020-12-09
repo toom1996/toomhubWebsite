@@ -32,6 +32,13 @@ export default {
     SideBarStyle1
   },
   mounted () {
+
+    // const ip = this.$axios.get('http://icanhazip.com')
+    this.$axios.$get("https://toomhub.23cm.cn/v1/mini/sq/index?page=1").then(res=>{
+        console.log(res)
+    })
+    console.log(11111111111)
+    
     this.logo = loader
     // socialvue.index()
      this.$nextTick(() => {
@@ -57,3 +64,7 @@ export default {
 @import url("~/assets/css/custom.css");
 @import url("~/assets/css/PriceSlider.css");
 </style>
+<style lang="scss">
+@import "~/assets/scss/style.scss";
+</style>
+

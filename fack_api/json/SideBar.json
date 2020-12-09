@@ -1,5 +1,17 @@
 [
   {
+    "title": "首页",
+    "name": "首页",
+    "is_heading": false,
+    "is_active": false,
+    "link": {
+      "name": "social.list"
+    },
+    "class_name": "",
+    "is_icon_class": true,
+    "icon": "fa fa-th-list"
+  },
+  {
     "title": "News Feed",
     "name": "sidebar.newsfeed",
     "is_heading": false,

@@ -29,14 +29,14 @@
                     <a href="#" class="iq-waves-effect d-flex align-items-center">
                         <img src="~/assets/images/user/1.jpg" class="img-fluid rounded-circle mr-3" alt="user">
                         <div class="caption">
-                          <h6 class="mb-0 line-height">Bni Cyst</h6>
+                          <h6 class="mb-0 line-height">toom</h6>
                         </div>
                     </a>
                   </li>
                   <li>
-                    <a href="#" class="iq-waves-effect d-flex align-items-center">
+                    <nuxt-link to="/" class="iq-waves-effect d-flex align-items-center">
                     <i class="ri-home-line"></i>
-                    </a>
+                    </nuxt-link>
                   </li>
                   <li class="nav-item">
                     <a class="search-toggle iq-waves-effect" href="#"><i class="ri-group-line"></i></a>

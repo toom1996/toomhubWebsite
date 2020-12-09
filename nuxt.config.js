@@ -31,6 +31,8 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
+   // Doc: https://github.com/nuxt-community/axios-module#usage
+   '@nuxtjs/axios',
     [
       'nuxt-i18n',
       {
