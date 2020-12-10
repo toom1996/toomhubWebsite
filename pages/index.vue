@@ -12,15 +12,8 @@
         </div>
         <div class="iq-card-body" data-toggle="modal" data-target="#post-modal">
           <div class="d-flex align-items-center">
-            <div class="user-img">
-              <img
-                src="~/assets/images/user/1.jpg"
-                alt="userimg"
-                class="avatar-60 rounded-circle"
-              />
-            </div>
             <form class="post-text ml-3 w-100" action="javascript:void();">
-              <input
+              <textarea
                 type="text"
                 class="form-control rounded"
                 placeholder="Write something here..."
@@ -29,26 +22,44 @@
             </form>
           </div>
           <hr />
-          <ul class="post-opt-block d-flex align-items-center list-inline m-0 p-0">
+          <ul
+            class="post-opt-block d-flex align-items-center list-inline m-0 p-0"
+          >
             <li class="iq-bg-primary rounded p-2 pointer mr-3">
               <a href="#"></a
-              ><img src="~/assets/images/small/07.png" alt="icon" class="img-fluid" />
+              ><img
+                src="~/assets/images/small/07.png"
+                alt="icon"
+                class="img-fluid"
+              />
               Photo/Video
             </li>
             <li class="iq-bg-primary rounded p-2 pointer mr-3">
               <a href="#"></a
-              ><img src="~/assets/images/small/08.png" alt="icon" class="img-fluid" />
+              ><img
+                src="~/assets/images/small/08.png"
+                alt="icon"
+                class="img-fluid"
+              />
               Tag Friend
             </li>
             <li class="iq-bg-primary rounded p-2 pointer mr-3">
               <a href="#"></a
-              ><img src="~/assets/images/small/09.png" alt="icon" class="img-fluid" />
+              ><img
+                src="~/assets/images/small/09.png"
+                alt="icon"
+                class="img-fluid"
+              />
               Feeling/Activity
             </li>
             <li class="iq-bg-primary rounded p-2 pointer">
               <div class="iq-card-header-toolbar d-flex align-items-center">
                 <div class="dropdown">
-                  <span class="dropdown-toggle" id="post-option" data-toggle="dropdown">
+                  <span
+                    class="dropdown-toggle"
+                    id="post-option"
+                    data-toggle="dropdown"
+                  >
                     <i class="ri-more-fill"></i>
                   </span>
                   <div
@@ -80,7 +91,11 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="post-modalLabel">Create Post</h5>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
                   <i class="ri-close-fill"></i>
                 </button>
               </div>
@@ -93,7 +108,10 @@
                       class="avatar-60 rounded-circle img-fluid"
                     />
                   </div>
-                  <form class="post-text ml-3 w-100" action="javascript:void();">
+                  <form
+                    class="post-text ml-3 w-100"
+                    action="javascript:void();"
+                  >
                     <input
                       type="text"
                       class="form-control rounded"
@@ -103,7 +121,9 @@
                   </form>
                 </div>
                 <hr />
-                <ul class="d-flex flex-wrap align-items-center list-inline m-0 p-0">
+                <ul
+                  class="d-flex flex-wrap align-items-center list-inline m-0 p-0"
+                >
                   <li class="col-md-6 mb-3">
                     <div class="iq-bg-primary rounded p-2 pointer mr-3">
                       <a href="#"></a
@@ -195,7 +215,9 @@
                 </ul>
                 <hr />
                 <div class="other-option">
-                  <div class="d-flex align-items-center justify-content-between">
+                  <div
+                    class="d-flex align-items-center justify-content-between"
+                  >
                     <div class="d-flex align-items-center">
                       <div class="user-img mr-3">
                         <img
@@ -267,7 +289,10 @@
                     </div>
                   </div>
                 </div>
-                <button type="submit" class="btn btn-primary d-block w-100 mt-3">
+                <button
+                  type="submit"
+                  class="btn btn-primary d-block w-100 mt-3"
+                >
                   Post
                 </button>
               </div>
@@ -283,7 +308,7 @@
             <div class="d-flex flex-wrap">
               <div class="media-support-user-img mr-3">
                 <img
-                  class="rounded-circle img-fluid"
+                  class="rounded-circle"
                   src="~/assets/images/user/01.jpg"
                   alt=""
                 />
@@ -333,7 +358,9 @@
                         </div>
                         <div class="data ml-2">
                           <h6>Unfollow User</h6>
-                          <p class="mb-0">Stop seeing posts but stay friends.</p>
+                          <p class="mb-0">
+                            Stop seeing posts but stay friends.
+                          </p>
                         </div>
                       </div>
                     </a>
@@ -344,7 +371,9 @@
                         </div>
                         <div class="data ml-2">
                           <h6>Notifications</h6>
-                          <p class="mb-0">Turn on notifications for this post</p>
+                          <p class="mb-0">
+                            Turn on notifications for this post
+                          </p>
                         </div>
                       </div>
                     </a>
@@ -357,23 +386,42 @@
             <p>
               {{ item.content }}
             </p>
+            <div class="demo-image__preview">
+  
+</div>
           </div>
           <div class="user-post">
             <div class="d-flex">
               <div class="post-image">
-                <img
+                <!-- <img
                 v-for="(item, index) in item.list"
                 :key="index"
                 v-bind:src="item"
                 alt="post-image"
-                class="img-fluid rounded w-100"
-              />
+                class="img-fluid rounded w-75"
+              /> -->
+              
+                <el-image
+                  v-for="(value, index) in item.list"
+                  :key="index"
+                  v-bind:src="value"
+                  alt="post-image"
+                  class="img-fluid rounded w-75"
+                  :preview-src-list="item.list"
+                  lazy
+                >
+                  <div slot="placeholder" class="image-slot">
+                    加载中<span class="dot">...</span>
+                  </div>
+                </el-image>
               </div>
             </div>
           </div>
           <div class="comment-area mt-3">
             <div class="d-flex justify-content-between align-items-center">
-              <div class="like-block position-relative d-flex align-items-center">
+              <div
+                class="like-block position-relative d-flex align-items-center"
+              >
                 <div class="d-flex align-items-center">
                   <div class="like-data">
                     <div class="dropdown">
@@ -384,7 +432,11 @@
                         aria-expanded="false"
                         role="button"
                       >
-                        <img src="~/assets/images/icon/01.png" class="img-fluid" alt="" />
+                        <img
+                          src="~/assets/images/icon/01.png"
+                          class="img-fluid"
+                          alt=""
+                        />
                       </span>
                       <div class="dropdown-menu">
                         <a
@@ -520,9 +572,12 @@
                   </div>
                 </div>
               </div>
-              <div class="share-block d-flex align-items-center feather-icon mr-3">
+              <div
+                class="share-block d-flex align-items-center feather-icon mr-3"
+              >
                 <a href="javascript:void();"
-                  ><i class="ri-share-line"></i> <span class="ml-1">99 Share</span></a
+                  ><i class="ri-share-line"></i>
+                  <span class="ml-1">99 Share</span></a
                 >
               </div>
             </div>
@@ -540,7 +595,9 @@
                   <div class="comment-data-block ml-3">
                     <h6>Monty Carlo</h6>
                     <p class="mb-0">Lorem ipsum dolor sit amet</p>
-                    <div class="d-flex flex-wrap align-items-center comment-activity">
+                    <div
+                      class="d-flex flex-wrap align-items-center comment-activity"
+                    >
                       <a href="javascript:void();">like</a>
                       <a href="javascript:void();">reply</a>
                       <a href="javascript:void();">translate</a>
@@ -561,7 +618,9 @@
                   <div class="comment-data-block ml-3">
                     <h6>Paul Molive</h6>
                     <p class="mb-0">Lorem ipsum dolor sit amet</p>
-                    <div class="d-flex flex-wrap align-items-center comment-activity">
+                    <div
+                      class="d-flex flex-wrap align-items-center comment-activity"
+                    >
                       <a href="javascript:void();">like</a>
                       <a href="javascript:void();">reply</a>
                       <a href="javascript:void();">translate</a>
@@ -578,8 +637,12 @@
               <input type="text" class="form-control rounded" />
               <div class="comment-attagement d-flex">
                 <a href="javascript:void();"><i class="ri-link mr-3"></i></a>
-                <a href="javascript:void();"><i class="ri-user-smile-line mr-3"></i></a>
-                <a href="javascript:void();"><i class="ri-camera-line mr-3"></i></a>
+                <a href="javascript:void();"
+                  ><i class="ri-user-smile-line mr-3"></i
+                ></a>
+                <a href="javascript:void();"
+                  ><i class="ri-camera-line mr-3"></i
+                ></a>
               </div>
             </form>
           </div>
@@ -609,6 +672,7 @@ export default {
   data() {
     return {
       indexData: [],
+      //https://blog.csdn.net/trumangao/article/details/108713026
     };
   },
 };

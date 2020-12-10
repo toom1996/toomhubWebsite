@@ -8,7 +8,8 @@
         <a class="blog-header-logo text-dark" href="#">Large</a>
       </div>
       <div class="col-4 d-flex justify-content-end align-items-center">
-        <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
+        <a class="btn btn-sm btn-outline-secondary m-1" href="#">登陆</a>
+        <a class="btn btn-sm btn-outline-secondary" href="#">注册</a>
       </div>
     </div>
   </header>
