@@ -98,7 +98,7 @@ a:hover { text-decoration: none; }
                                Media Support
 -----------------------------------------------------------------------*/
 .media-support { display: inline-block; width: 100%; }
-.media-support-user-img img { height: 60px; }
+.media-support-user-img img { height: 40px; }
 .media-support-header { display: flex; align-items: flex-start; }
 .media-support-info { flex: 1; }
 .projects-media img { height: 60px; }
@@ -986,6 +986,8 @@ ul.media-story li.active img { border-color: var(--iq-primary); }
 .feather-icon a, .message-icon a { color: var(--iq-secondary); font-weight: 300; }
 .feather-icon a:hover, .message-icon a:hover { color: var(--iq-primary); }
 ul.post-comments { list-style: none; }
+.post-image {margin:auto;text-align: center;}
+.post-image-item {max-height: 450px;}
 .comment-activity > a { margin-right: 10px; text-transform: capitalize; color: var(--iq-primary); text-decoration: none; }
 form.comment-text { position: relative; }
 form.comment-text input { padding-right: 130px; }
