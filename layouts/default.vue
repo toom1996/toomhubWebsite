@@ -54,7 +54,7 @@ export default {
     console.log(11111111111);
 
     this.logo = loader;
-    // socialvue.index()
+    // socialvue.mainIndex()
     this.$nextTick(() => {
       this.$nuxt.$loading.start();
 

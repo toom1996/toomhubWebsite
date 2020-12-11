@@ -33,12 +33,12 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
-   // Doc: https://github.com/nuxt-community/axios-module#usage
-   '@nuxtjs/axios',
+    // Doc: https://github.com/nuxt-community/axios-module#usage
+    '@nuxtjs/axios',
     [
       'nuxt-i18n',
       {
-        disableNoTranslationWarning :true, //关闭警告
+        disableNoTranslationWarning: true, //关闭警告
         locales: ['en', 'es'],
         defaultLocale: 'en',
         vueI18n: {
@@ -59,6 +59,10 @@ export default {
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     // 添加模块，配置只打包一次，减少应用bundle的体积
-  vendor: ['element-ui']
+    vendor: ['element-ui']
+  },
+  server: {
+    port: 3000,     // default: 3000
+    host: '192.168.10.113' // default: localhost
   }
 }

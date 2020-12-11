@@ -7,7 +7,7 @@
       >
         <div class="iq-card-header d-flex justify-content-between">
           <div class="iq-header-title">
-            <h4 class="card-title">Create Post</h4>
+            <h4 class="card-title">发表感想</h4>
           </div>
         </div>
         <div class="iq-card-body" data-toggle="modal" data-target="#post-modal">
@@ -22,44 +22,26 @@
             </form>
           </div>
           <hr />
-          <ul
-            class="post-opt-block d-flex align-items-center list-inline m-0 p-0"
-          >
+          <ul class="post-opt-block d-flex align-items-center list-inline m-0 p-0">
             <li class="iq-bg-primary rounded p-2 pointer mr-3">
               <a href="#"></a
-              ><img
-                src="~/assets/images/small/07.png"
-                alt="icon"
-                class="img-fluid"
-              />
+              ><img src="~/assets/images/small/07.png" alt="icon" class="img-fluid" />
               Photo/Video
             </li>
             <li class="iq-bg-primary rounded p-2 pointer mr-3">
               <a href="#"></a
-              ><img
-                src="~/assets/images/small/08.png"
-                alt="icon"
-                class="img-fluid"
-              />
+              ><img src="~/assets/images/small/08.png" alt="icon" class="img-fluid" />
               Tag Friend
             </li>
             <li class="iq-bg-primary rounded p-2 pointer mr-3">
               <a href="#"></a
-              ><img
-                src="~/assets/images/small/09.png"
-                alt="icon"
-                class="img-fluid"
-              />
+              ><img src="~/assets/images/small/09.png" alt="icon" class="img-fluid" />
               Feeling/Activity
             </li>
             <li class="iq-bg-primary rounded p-2 pointer">
               <div class="iq-card-header-toolbar d-flex align-items-center">
                 <div class="dropdown">
-                  <span
-                    class="dropdown-toggle"
-                    id="post-option"
-                    data-toggle="dropdown"
-                  >
+                  <span class="dropdown-toggle" id="post-option" data-toggle="dropdown">
                     <i class="ri-more-fill"></i>
                   </span>
                   <div
@@ -91,11 +73,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="post-modalLabel">Create Post</h5>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                >
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
                   <i class="ri-close-fill"></i>
                 </button>
               </div>
@@ -108,10 +86,7 @@
                       class="avatar-60 rounded-circle img-fluid"
                     />
                   </div>
-                  <form
-                    class="post-text ml-3 w-100"
-                    action="javascript:void();"
-                  >
+                  <form class="post-text ml-3 w-100" action="javascript:void();">
                     <input
                       type="text"
                       class="form-control rounded"
@@ -121,9 +96,7 @@
                   </form>
                 </div>
                 <hr />
-                <ul
-                  class="d-flex flex-wrap align-items-center list-inline m-0 p-0"
-                >
+                <ul class="d-flex flex-wrap align-items-center list-inline m-0 p-0">
                   <li class="col-md-6 mb-3">
                     <div class="iq-bg-primary rounded p-2 pointer mr-3">
                       <a href="#"></a
@@ -215,9 +188,7 @@
                 </ul>
                 <hr />
                 <div class="other-option">
-                  <div
-                    class="d-flex align-items-center justify-content-between"
-                  >
+                  <div class="d-flex align-items-center justify-content-between">
                     <div class="d-flex align-items-center">
                       <div class="user-img mr-3">
                         <img
@@ -289,10 +260,7 @@
                     </div>
                   </div>
                 </div>
-                <button
-                  type="submit"
-                  class="btn btn-primary d-block w-100 mt-3"
-                >
+                <button type="submit" class="btn btn-primary d-block w-100 mt-3">
                   Post
                 </button>
               </div>
@@ -307,18 +275,14 @@
           <div class="user-post-data">
             <div class="d-flex flex-wrap">
               <div class="media-support-user-img mr-3">
-                <img
-                  class="rounded-circle"
-                  src="~/assets/images/user/01.jpg"
-                  alt=""
-                />
+                <img class="rounded-circle" src="~/assets/images/user/01.jpg" alt="" />
               </div>
               <div class="media-support-info">
                 <h5 class="mb-0 d-inline-block">Anna Sthesia</h5>
                 <h6><p class="mb-0">10分钟前</p></h6>
               </div>
-              <div class="iq-card-post-toolbar">
-                <div class="dropdown">
+              <el-dropdown class="iq-card-post-toolbar" trigger="click">
+                <span class="dropdown">
                   <span
                     class="dropdown-toggle"
                     data-toggle="dropdown"
@@ -328,8 +292,11 @@
                   >
                     <i class="ri-more-fill"></i>
                   </span>
-                  <div class="dropdown-menu m-0 p-0">
-                    <a class="dropdown-item p-3" href="#">
+                </span>
+                <template #dropdown>
+                  <el-dropdown-menu>
+                    <el-dropdown-item
+                      ><a class="dropdown-item p-3" href="#">
                       <div class="d-flex align-items-top">
                         <div class="icon font-size-20">
                           <i class="ri-save-line"></i>
@@ -339,8 +306,10 @@
                           <p class="mb-0">Add this to your saved items</p>
                         </div>
                       </div>
-                    </a>
-                    <a class="dropdown-item p-3" href="#">
+                    </a></el-dropdown-item
+                    >
+                    <el-dropdown-item
+                      ><a class="dropdown-item p-3" href="#">
                       <div class="d-flex align-items-top">
                         <div class="icon font-size-20">
                           <i class="ri-close-circle-line"></i>
@@ -350,45 +319,44 @@
                           <p class="mb-0">See fewer posts like this.</p>
                         </div>
                       </div>
-                    </a>
-                    <a class="dropdown-item p-3" href="#">
+                    </a></el-dropdown-item
+                    >
+                    <el-dropdown-item
+                      ><a class="dropdown-item p-3" href="#">
                       <div class="d-flex align-items-top">
                         <div class="icon font-size-20">
                           <i class="ri-user-unfollow-line"></i>
                         </div>
                         <div class="data ml-2">
                           <h6>Unfollow User</h6>
-                          <p class="mb-0">
-                            Stop seeing posts but stay friends.
-                          </p>
+                          <p class="mb-0">Stop seeing posts but stay friends.</p>
                         </div>
                       </div>
-                    </a>
-                    <a class="dropdown-item p-3" href="#">
+                    </a></el-dropdown-item
+                    >
+                    <el-dropdown-item
+                      ><a class="dropdown-item p-3" href="#">
                       <div class="d-flex align-items-top">
                         <div class="icon font-size-20">
                           <i class="ri-notification-line"></i>
                         </div>
                         <div class="data ml-2">
                           <h6>Notifications</h6>
-                          <p class="mb-0">
-                            Turn on notifications for this post
-                          </p>
+                          <p class="mb-0">Turn on notifications for this post</p>
                         </div>
                       </div>
-                    </a>
-                  </div>
-                </div>
-              </div>
+                    </a></el-dropdown-item
+                    >
+                  </el-dropdown-menu>
+                </template>
+              </el-dropdown>
             </div>
           </div>
           <div class="mt-3">
             <p>
               {{ item.content }}
             </p>
-            <div class="demo-image__preview">
-  
-</div>
+            <div class="demo-image__preview"></div>
           </div>
           <div class="user-post">
             <div class="d-flex">
@@ -400,8 +368,8 @@
                 alt="post-image"
                 class="img-fluid rounded w-75"
               /> -->
-              
                 <el-image
+                  @click="hideImagePriviewHandle"
                   v-for="(value, index) in item.list"
                   :key="index"
                   v-bind:src="value"
@@ -419,9 +387,7 @@
           </div>
           <div class="comment-area mt-3">
             <div class="d-flex justify-content-between align-items-center">
-              <div
-                class="like-block position-relative d-flex align-items-center"
-              >
+              <div class="like-block position-relative d-flex align-items-center">
                 <div class="d-flex align-items-center">
                   <div class="like-data">
                     <div class="dropdown">
@@ -432,11 +398,7 @@
                         aria-expanded="false"
                         role="button"
                       >
-                        <img
-                          src="~/assets/images/icon/01.png"
-                          class="img-fluid"
-                          alt=""
-                        />
+                        <img src="~/assets/images/icon/01.png" class="img-fluid" alt="" />
                       </span>
                       <div class="dropdown-menu">
                         <a
@@ -535,7 +497,7 @@
                         aria-expanded="false"
                         role="button"
                       >
-                        140 Likes
+                        140 喜欢
                       </span>
                       <div class="dropdown-menu">
                         <a class="dropdown-item" href="#">Max Emum</a>
@@ -572,14 +534,6 @@
                   </div>
                 </div>
               </div>
-              <div
-                class="share-block d-flex align-items-center feather-icon mr-3"
-              >
-                <a href="javascript:void();"
-                  ><i class="ri-share-line"></i>
-                  <span class="ml-1">99 Share</span></a
-                >
-              </div>
             </div>
             <hr />
             <ul class="post-comments p-0 m-0">
@@ -595,9 +549,7 @@
                   <div class="comment-data-block ml-3">
                     <h6>Monty Carlo</h6>
                     <p class="mb-0">Lorem ipsum dolor sit amet</p>
-                    <div
-                      class="d-flex flex-wrap align-items-center comment-activity"
-                    >
+                    <div class="d-flex flex-wrap align-items-center comment-activity">
                       <a href="javascript:void();">like</a>
                       <a href="javascript:void();">reply</a>
                       <a href="javascript:void();">translate</a>
@@ -618,9 +570,7 @@
                   <div class="comment-data-block ml-3">
                     <h6>Paul Molive</h6>
                     <p class="mb-0">Lorem ipsum dolor sit amet</p>
-                    <div
-                      class="d-flex flex-wrap align-items-center comment-activity"
-                    >
+                    <div class="d-flex flex-wrap align-items-center comment-activity">
                       <a href="javascript:void();">like</a>
                       <a href="javascript:void();">reply</a>
                       <a href="javascript:void();">translate</a>
@@ -637,12 +587,8 @@
               <input type="text" class="form-control rounded" />
               <div class="comment-attagement d-flex">
                 <a href="javascript:void();"><i class="ri-link mr-3"></i></a>
-                <a href="javascript:void();"
-                  ><i class="ri-user-smile-line mr-3"></i
-                ></a>
-                <a href="javascript:void();"
-                  ><i class="ri-camera-line mr-3"></i
-                ></a>
+                <a href="javascript:void();"><i class="ri-user-smile-line mr-3"></i></a>
+                <a href="javascript:void();"><i class="ri-camera-line mr-3"></i></a>
               </div>
             </form>
           </div>
@@ -667,6 +613,26 @@ export default {
           this.indexData = res.data.list;
         });
       console.log(indexData);
+    },
+    hideImagePriviewHandle() {
+      this.$nextTick(() => {
+        // 获取遮罩层dom
+        let domImageMask = document.querySelector(".el-image-viewer__mask");
+        if (!domImageMask) {
+          return;
+        }
+        domImageMask.addEventListener("click", () => {
+          // 点击遮罩层时调用关闭按钮的 click 事件
+          document.querySelector(".el-image-viewer__close").click();
+        });
+      });
+    },
+    openPostMenu() {
+      console.log(112121211);
+      $(".wrapper-menu").click(function () {
+        $(this).toggleClass("open");
+        $("body").toggleClass("sidebar-main");
+      });
     },
   },
   data() {
