@@ -23,7 +23,7 @@
       <div id="content-page" class="content-page">
         <div class="container">
           <div class="row">
-            <Nuxt />
+            <Nuxt keep-alive />
           </div>
         </div>
       </div>

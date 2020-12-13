@@ -375,7 +375,6 @@
                   v-bind:src="value"
                   alt="post-image"
                   class="img-fluid rounded w-75"
-                  :preview-src-list="item.list"
                   lazy
                 >
                   <div slot="placeholder" class="image-slot">
@@ -604,11 +603,14 @@ export default {
   mounted() {
     this.getIndex();
   },
+  created() {
+    this.getIndex();
+  },
   methods: {
     //获取首页数据
     getIndex() {
       let indexData = this.$axios
-        .$get("https://toomhub.23cm.cn/v1/mini/sq/index?page=1")
+        .$get("/v1/mini/sq/index?page=1")
         .then((res) => {
           this.indexData = res.data.list;
         });

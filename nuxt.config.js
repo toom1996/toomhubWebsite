@@ -19,7 +19,23 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    { src: '@/plugins/element-ui.js', ssr: true }
+    { src: '@/plugins/element-ui.js', ssr: true },
+    { src: '~/plugins/axios' }
+  ],
+
+  axios: {
+    proxy: true // Can be also an object with default options
+  },
+
+  proxy: [
+    [
+      '/api',//拦截目录
+      {
+        target: 'http://192.168.31.88:8080',//https://toomhub.23cm.cn/', // 代理api主机
+        changeOrigin: true,
+        pathRewrite: { '^/api' : '' }
+      }
+    ]
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -61,8 +77,8 @@ export default {
     // 添加模块，配置只打包一次，减少应用bundle的体积
     vendor: ['element-ui']
   },
-  server: {
-    port: 3000,     // default: 3000
-    host: '192.168.10.113' // default: localhost
-  }
+  // server: {
+  //   port: 3000,     // default: 3000
+  //   host: '192.168.31.88' // default: localhost
+  // }
 }
