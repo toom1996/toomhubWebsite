@@ -31,7 +31,7 @@ export default {
     [
       '/api',//拦截目录
       {
-        target: 'http://192.168.31.88:8080',//https://toomhub.23cm.cn/', // 代理api主机
+        target: 'http://192.168.10.113:8080',//https://toomhub.23cm.cn/', // 代理api主机
         changeOrigin: true,
         pathRewrite: { '^/api' : '' }
       }

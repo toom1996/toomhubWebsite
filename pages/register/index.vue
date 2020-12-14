@@ -1,11 +1,6 @@
 <template>
   <div class="form-signin">
-    <el-button
-      keep-alive
-      icon="el-icon-back"
-      circle
-      @click="routerBack"
-    ></el-button>
+    <el-button keep-alive icon="el-icon-back" circle @click="routerBack"></el-button>
     <div class="text-center mb-4">
       <img
         class="mb-4"
@@ -53,11 +48,7 @@
             :disabled="isSend"
             @click="smsSendHandle"
             >发送短信验证码</el-button
-          ><el-button
-            v-else
-            slot="append"
-            icon="el-icon-mobile-phone"
-            :disabled="isSend"
+          ><el-button v-else slot="append" icon="el-icon-mobile-phone" :disabled="isSend"
             >验证码已发送({{ this.timer }})</el-button
           >
         </el-input>
@@ -92,10 +83,22 @@
     </div>
     <button class="btn btn-lg btn-primary btn-block mt-2">返回首页</button>
     <p class="mt-5 mb-3 text-muted text-center">© 2017-2020</p>
+    <!-- 注册成功modal -->
+    <div>
+      <b-modal id="registerSuccessModal" hide-footer>
+        <template #modal-title> 信息提示 </template>
+        <div class="d-block text-center">
+          <h3>恭喜你!注册成功了 ^_^</h3>
+        </div>
+        <b-button class="mt-3" block @click="routerToIndex"
+          >回到首页</b-button
+        >
+      </b-modal>
+    </div>
   </div>
 </template>
 <script>
-import { routerBack } from "~/utils/common.js";
+import { routerBack, routerToIndex } from "~/utils/common.js";
 export default {
   layout: "register",
   data() {
@@ -148,11 +151,7 @@ export default {
     //检查输入的注册信息
     checkRegister() {
       let isOk = false;
-      if (
-        this.input.mobile &&
-        this.input.smsCode &&
-        this.isAgreeUserAgreement == true
-      ) {
+      if (this.input.mobile && this.input.smsCode && this.isAgreeUserAgreement == true) {
         isOk = true;
       }
       if (isOk == true) {
@@ -192,14 +191,15 @@ export default {
     },
     //注册按钮点击事件
     registerHandle() {
-        this.$axios
-        .$post("/api/v1/user/register")
-        .then((res) => {
-
-          //TODO: 跳转到首页
-          console.log(this.$router.push('/'))
-
-        });
+      this.$axios.$post("/api/v1/user/register").then((res) => {
+        this.$bvModal.show("registerSuccessModal");
+        //TODO: 跳转到首页
+        // console.log(this.$router.push("/"));
+      });
+    },
+    //回到首页
+    routerToIndex() {
+      routerToIndex(this)
     }
   },
 };
