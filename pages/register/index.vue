@@ -90,15 +90,14 @@
         <div class="d-block text-center">
           <h3>恭喜你!注册成功了 ^_^</h3>
         </div>
-        <b-button class="mt-3" block @click="routerToIndex"
-          >回到首页</b-button
-        >
+        <b-button class="mt-3" block @click="routerToIndex">回到首页</b-button>
       </b-modal>
     </div>
   </div>
 </template>
 <script>
 import { routerBack, routerToIndex } from "~/utils/common.js";
+import { registerUser } from "~/api/user";
 export default {
   layout: "register",
   data() {
@@ -164,7 +163,11 @@ export default {
     },
     //手机号码验证
     mobileValidator() {
-      if (!/^1[3456789]\d{9}$/.test(this.input.mobile)) {
+      if (
+        !/^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\d{8}$/.test(
+          this.input.mobile
+        )
+      ) {
         return false;
       }
       return true;
@@ -191,7 +194,10 @@ export default {
     },
     //注册按钮点击事件
     registerHandle() {
-      this.$axios.$post("/api/v1/user/register").then((res) => {
+      registerUser({
+        mobile: this.input.mobile,
+        code: this.input.smsCode,
+      }).then((res) => {
         this.$bvModal.show("registerSuccessModal");
         //TODO: 跳转到首页
         // console.log(this.$router.push("/"));
@@ -199,8 +205,8 @@ export default {
     },
     //回到首页
     routerToIndex() {
-      routerToIndex(this)
-    }
+      routerToIndex(this);
+    },
   },
 };
 </script>

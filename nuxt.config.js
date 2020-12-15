@@ -33,7 +33,7 @@ export default {
       {
         target: 'http://192.168.10.113:8080',//https://toomhub.23cm.cn/', // 代理api主机
         changeOrigin: true,
-        pathRewrite: { '^/api' : '' }
+        pathRewrite: { '^/' : '' }
       }
     ]
   ],
