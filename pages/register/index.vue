@@ -96,8 +96,8 @@
   </div>
 </template>
 <script>
-import { routerBack, routerToIndex } from "~/utils/common.js";
-import { registerUser } from "~/api/user";
+import { routerBack, routerToIndex, userInfoSave } from "~/utils/common.js";
+import { registerUser, smsSend } from "~/api/user";
 export default {
   layout: "register",
   data() {
@@ -123,6 +123,11 @@ export default {
         });
         return false;
       }
+      smsSend({
+        mobile: this.input.mobile,
+      }).then((res) => {
+        console.log(res);
+      });
       this.isSend = true;
       this.timerStartHandle();
       this.$message({
@@ -198,9 +203,17 @@ export default {
         mobile: this.input.mobile,
         code: this.input.smsCode,
       }).then((res) => {
+        let responseData = res.data;
         this.$bvModal.show("registerSuccessModal");
+        console.log("responseData", responseData);
+        userInfoSave(responseData);
+        this.$store.state.zToken = responseData.zToken;
+        this.$store.state.id = responseData.id;
+        this.$store.state.avatar = responseData.avatar;
+        this.$store.state.refreshToken = responseData.refreshToken;
+        this.$store.state.isLogin = true;
         //TODO: 跳转到首页
-        // console.log(this.$router.push("/"));
+        console.log(this.$router.push("/"));
       });
     },
     //回到首页
