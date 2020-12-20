@@ -20,7 +20,8 @@ export default {
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
     { src: '@/plugins/element-ui.js', ssr: true },
-    { src: '~/plugins/axios' }
+    { src: '~/plugins/axios' },
+    { src: '~/plugins/identity', ssr: false }
   ],
 
   axios: {
@@ -31,9 +32,9 @@ export default {
     [
       '/api',//拦截目录
       {
-        target: 'http://192.168.10.113:8080',//https://toomhub.23cm.cn/', // 代理api主机
+        target: 'http://localhost:8080',//https://toomhub.23cm.cn/', // 代理api主机
         changeOrigin: true,
-        pathRewrite: { '^/' : '' }
+        pathRewrite: { '^/': '' }
       }
     ]
   ],

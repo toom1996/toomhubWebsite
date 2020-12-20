@@ -1,6 +1,11 @@
 <template>
   <div class="form-signin">
-    <el-button keep-alive icon="el-icon-back" circle @click="routerBack"></el-button>
+    <el-button
+      keep-alive
+      icon="el-icon-back"
+      circle
+      @click="routerBack"
+    ></el-button>
     <div class="text-center mb-4">
       <img
         class="mb-4"
@@ -48,7 +53,11 @@
             :disabled="isSend"
             @click="smsSendHandle"
             >发送短信验证码</el-button
-          ><el-button v-else slot="append" icon="el-icon-mobile-phone" :disabled="isSend"
+          ><el-button
+            v-else
+            slot="append"
+            icon="el-icon-mobile-phone"
+            :disabled="isSend"
             >验证码已发送({{ this.timer }})</el-button
           >
         </el-input>
@@ -126,14 +135,13 @@ export default {
       smsSend({
         mobile: this.input.mobile,
       }).then((res) => {
-        console.log(res);
-      });
-      this.isSend = true;
-      this.timerStartHandle();
-      this.$message({
-        showClose: true,
-        message: "这是一条消息提示",
-        type: "success",
+        this.isSend = true;
+        this.timerStartHandle();
+        this.$message({
+          showClose: true,
+          message: res.msg,
+          type: "success",
+        });
       });
     },
     //验证码计时器倒计时
@@ -155,7 +163,11 @@ export default {
     //检查输入的注册信息
     checkRegister() {
       let isOk = false;
-      if (this.input.mobile && this.input.smsCode && this.isAgreeUserAgreement == true) {
+      if (
+        this.input.mobile &&
+        this.input.smsCode &&
+        this.isAgreeUserAgreement == true
+      ) {
         isOk = true;
       }
       if (isOk == true) {
@@ -211,7 +223,7 @@ export default {
         this.$store.state.id = responseData.id;
         this.$store.state.avatar = responseData.avatar;
         this.$store.state.refreshToken = responseData.refreshToken;
-        this.$store.state.isLogin = true;
+        this.$store.state.nickname = responseData.nickname;
         //TODO: 跳转到首页
         console.log(this.$router.push("/"));
       });

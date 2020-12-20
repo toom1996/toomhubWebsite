@@ -1,63 +1,65 @@
 <template>
-  <!-- Just an image -->
-  <header class="blog-header py-3">
-    <div class="row flex-nowrap justify-content-between align-items-center">
-      <div class="col-4 pt-1">
-        <a class="navbar-brand" href="#">
-          <img
-            src="https://getbootstrap.net/assets/brand/bootstrap-solid.svg"
-            width="30"
-            height="30"
-            alt=""
-          />
-        </a>
-      </div>
-      <div class="col-4 text-center">
-        <a class="blog-header-logo text-dark" href="#">Large</a>
-      </div>
-      <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-        <li class="nav-item dropdown">
-          <a
-            class="nav-item nav-link dropdown-toggle mr-md-2"
-            href="#"
-            id="bd-versions"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            v4.1
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bd-versions">
-            <a class="dropdown-item active" href="/">Latest (4.x)</a>
-            <a class="dropdown-item" href="/v3">v3.3.7</a>
-            <a class="dropdown-item" href="/v2">v2.3.2</a>
-          </div>
-        </li>
-        <li class="nav-item" v-if="isLogin == false">
-          <Nuxt-link to="/register" class="btn btn-sm btn-outline-secondary mr-2" href="#"
-            >注册</Nuxt-link
-          >
-        </li>
-        <li class="nav-item">
-          <Nuxt-link to="/login" class="btn btn-sm btn-outline-secondary" href="#"
-            >登陆</Nuxt-link
-          >
-        </li>
-      </ul>
-    </div>
-  </header>
+  <b-navbar toggleable="lg" type="dark" variant="info">
+    <b-navbar-brand href="#">ZAWAZAWA</b-navbar-brand>
+
+    <b-collapse id="nav-collapse" is-nav>
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="ml-auto">
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item-dropdown right v-show="identity.zToken != null">
+            <!-- Using 'button-content' slot -->
+            <template #button-content>
+              <b-img
+                v-bind:src="'http://himg.bdimg.com/sys/portrait/item/2332313032333135303639378a08.jpg'"
+                rounded="circle"
+                alt="Circle image"
+                style="height:20px"
+              ></b-img>
+              <em>{{ identity.nickname }}</em>
+            </template>
+            <b-dropdown-item>个人中心</b-dropdown-item>
+            <b-dropdown-item @click="logout">退出登陆</b-dropdown-item>
+          </b-nav-item-dropdown>
+          <b-navbar-nav v-show="identity.zToken == null">
+            <Nuxt-link
+              to="/register"
+              class="btn btn-sm btn-outline-secondary"
+              href="#"
+              >注册</Nuxt-link
+            ><Nuxt-link
+              to="/login"
+              class="btn btn-sm btn-outline-secondary"
+              href="#"
+              >登陆</Nuxt-link
+            >
+          </b-navbar-nav>
+        </b-navbar-nav>
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
 </template>
 <script>
-import { getIdentity } from "~/utils/common.js";
+import { getIdentity, routerRefresh, userInfoClear } from "~/utils/common.js";
 export default {
   mounted() {
-    console.log(this.$store.state.isLogin)
+    console.log(this.$store.state);
     // $nuxt.setLayout('layout_name')
   },
   data() {
     return {
-      isLogin: this.$store.state.isLogin,
-    }
+      identity: {
+        zToken: this.$store.state.zToken,
+        nickname: this.$store.state.nickname,
+        avatar: this.$store.state.avatar,
+      },
+    };
+  },
+  methods: {
+    //退出登录并刷新页面
+    logout() {
+      userInfoClear();
+      routerRefresh();
+    },
   },
   // layout: 'test'
 };
