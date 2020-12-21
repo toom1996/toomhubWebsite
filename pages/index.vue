@@ -24,9 +24,22 @@
           <hr />
           <ul class="post-opt-block d-flex align-items-center list-inline m-0 p-0">
             <li class="iq-bg-primary rounded p-2 pointer mr-3">
-              <a href="#"></a
-              ><img src="~/assets/images/small/07.png" alt="icon" class="img-fluid" />
-              Photo/Video
+              <a href="javascript:;">
+                <el-upload
+                  class="upload-demo"
+                  accept="image/jpeg,image/gif,image/png,image/bmp"
+                  action="http://up-z2.qiniup.com/"
+                  :data="uploadData"
+                  :on-success="uploadSuccessHandle"
+                  :show-file-list="false"
+                  multiple
+                  :before-upload="beforeUpload"
+                  :limit="9"
+                >
+                  <img src="~/assets/images/small/07.png" alt="icon" class="img-fluid" />
+                  添加图片
+                </el-upload>
+              </a>
             </li>
             <li class="iq-bg-primary rounded p-2 pointer mr-3">
               <a href="#"></a
@@ -59,6 +72,22 @@
               </div>
             </li>
           </ul>
+          <div class="mt-3 row">
+            <div
+              class="upload-preview text-center col-3"
+              v-for="(item, index) in imageUploadList"
+              :key="index"
+            >
+              <span class="file-item-delete" @click="removeUploadHandle(index)">×</span>
+              <el-image
+                style="height: 100px"
+                :src="'http://qloen87f5.hn-bkt.clouddn.com/' + item"
+                alt="..."
+                fit="cover"
+                class="upload-preview-img"
+              />
+            </div>
+          </div>
         </div>
         <div
           class="modal fade"
@@ -99,13 +128,14 @@
                 <ul class="d-flex flex-wrap align-items-center list-inline m-0 p-0">
                   <li class="col-md-6 mb-3">
                     <div class="iq-bg-primary rounded p-2 pointer mr-3">
-                      <a href="#"></a
-                      ><img
-                        src="~/assets/images/small/07.png"
-                        alt="icon"
-                        class="img-fluid"
-                      />
-                      Photo/Video
+                      <button href="#">
+                        <img
+                          src="~/assets/images/small/07.png"
+                          alt="icon"
+                          class="img-fluid"
+                        />
+                        Photo/Video~!
+                      </button>
                     </div>
                   </li>
                   <li class="col-md-6 mb-3">
@@ -297,55 +327,55 @@
                   <el-dropdown-menu>
                     <el-dropdown-item
                       ><a class="dropdown-item p-3" href="#">
-                      <div class="d-flex align-items-top">
-                        <div class="icon font-size-20">
-                          <i class="ri-save-line"></i>
+                        <div class="d-flex align-items-top">
+                          <div class="icon font-size-20">
+                            <i class="ri-save-line"></i>
+                          </div>
+                          <div class="data ml-2">
+                            <h6>Save Post</h6>
+                            <p class="mb-0">Add this to your saved items</p>
+                          </div>
                         </div>
-                        <div class="data ml-2">
-                          <h6>Save Post</h6>
-                          <p class="mb-0">Add this to your saved items</p>
-                        </div>
-                      </div>
-                    </a></el-dropdown-item
+                      </a></el-dropdown-item
                     >
                     <el-dropdown-item
                       ><a class="dropdown-item p-3" href="#">
-                      <div class="d-flex align-items-top">
-                        <div class="icon font-size-20">
-                          <i class="ri-close-circle-line"></i>
+                        <div class="d-flex align-items-top">
+                          <div class="icon font-size-20">
+                            <i class="ri-close-circle-line"></i>
+                          </div>
+                          <div class="data ml-2">
+                            <h6>Hide Post</h6>
+                            <p class="mb-0">See fewer posts like this.</p>
+                          </div>
                         </div>
-                        <div class="data ml-2">
-                          <h6>Hide Post</h6>
-                          <p class="mb-0">See fewer posts like this.</p>
-                        </div>
-                      </div>
-                    </a></el-dropdown-item
+                      </a></el-dropdown-item
                     >
                     <el-dropdown-item
                       ><a class="dropdown-item p-3" href="#">
-                      <div class="d-flex align-items-top">
-                        <div class="icon font-size-20">
-                          <i class="ri-user-unfollow-line"></i>
+                        <div class="d-flex align-items-top">
+                          <div class="icon font-size-20">
+                            <i class="ri-user-unfollow-line"></i>
+                          </div>
+                          <div class="data ml-2">
+                            <h6>Unfollow User</h6>
+                            <p class="mb-0">Stop seeing posts but stay friends.</p>
+                          </div>
                         </div>
-                        <div class="data ml-2">
-                          <h6>Unfollow User</h6>
-                          <p class="mb-0">Stop seeing posts but stay friends.</p>
-                        </div>
-                      </div>
-                    </a></el-dropdown-item
+                      </a></el-dropdown-item
                     >
                     <el-dropdown-item
                       ><a class="dropdown-item p-3" href="#">
-                      <div class="d-flex align-items-top">
-                        <div class="icon font-size-20">
-                          <i class="ri-notification-line"></i>
+                        <div class="d-flex align-items-top">
+                          <div class="icon font-size-20">
+                            <i class="ri-notification-line"></i>
+                          </div>
+                          <div class="data ml-2">
+                            <h6>Notifications</h6>
+                            <p class="mb-0">Turn on notifications for this post</p>
+                          </div>
                         </div>
-                        <div class="data ml-2">
-                          <h6>Notifications</h6>
-                          <p class="mb-0">Turn on notifications for this post</p>
-                        </div>
-                      </div>
-                    </a></el-dropdown-item
+                      </a></el-dropdown-item
                     >
                   </el-dropdown-menu>
                 </template>
@@ -598,22 +628,53 @@
 </template>
 
 <script>
+import  md5  from "js-md5";
 export default {
   components: {},
   mounted() {
-    this.getIndex();
+    this.getQiniuUploadAccessToken();
   },
   created() {
     this.getIndex();
   },
   methods: {
+    removeUploadHandle(index) {
+      console.log(index)
+      this.imageUploadList.splice(index,1)
+    },
+    //上传前图片验证
+    beforeUpload(file) {
+      if (file.type.split("/")[0] === "image") {
+        let tempSize = (file.size / 5242880) * 4;
+        if (tempSize > 1) {
+          this.$message.error("图片尺寸不得大于20M！");
+          return false;
+        }
+      }
+      this.loading = true;
+      let tempNames = file.name.split(".");
+      let fileType = tempNames[tempNames.length - 1];
+      let curr = (+new Date()).toString();
+      let random = Math.random() * 10000;
+      let md5Str = md5(`${curr}${random}${file.name}`);
+      this.uploadData.key = `zawa/${md5Str}.${fileType}`;
+    },
+    uploadSuccessHandle(res) {
+      this.imageUploadList.push(res.hash);
+      console.log(this.imageUploadList);
+    },
+    //获取七牛云上传AccessToken
+    getQiniuUploadAccessToken() {
+      this.$axios.$get("/api/v1/upload/image").then((res) => {
+        console.log(res);
+        this.uploadData.token = res.data;
+      });
+    },
     //获取首页数据
     getIndex() {
-      let indexData = this.$axios
-        .$get("/v1/mini/sq/index?page=1")
-        .then((res) => {
-          this.indexData = res.data.list;
-        });
+      let indexData = this.$axios.$get("/v1/mini/sq/index?page=1").then((res) => {
+        this.indexData = res.data.list;
+      });
       console.log(indexData);
     },
     hideImagePriviewHandle() {
@@ -639,9 +700,37 @@ export default {
   },
   data() {
     return {
-      indexData: [],
+      indexData: [], //首页信息
+      imageUploadList: [], //上传的图片列表
+      uploadData: {
+      },
+      uploadBox: [], //用作排序的盒子
+      loading: false,
       //https://blog.csdn.net/trumangao/article/details/108713026
     };
   },
 };
 </script>
+<style scoped>
+.upload-preview .file-item-delete {
+  position: absolute;
+  top: 0;
+  right: 7px;
+  background: #ff4544;
+  color: #fff;
+  width: 1.25rem;
+  height: 1.25rem;
+  line-height: 1.1rem;
+  text-align: center;
+  border-radius: 0 2px 0 2px;
+  cursor: pointer;
+  opacity: 0.25;
+  border: 1px solid #ee4140;
+  z-index: 2;
+}
+
+.upload-preview:hover .file-item-delete {
+  opacity: 1;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.75);
+}
+</style>
