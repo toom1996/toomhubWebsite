@@ -7,7 +7,10 @@
       >
         <div class="iq-card-header d-flex justify-content-between">
           <div class="iq-header-title">
-            <h4 class="card-title">发表感想</h4>
+            <h4 class="card-title">zawa一下</h4>
+          </div>
+          <div class="iq-header-title">
+            <b-button variant="outline-primary" @click="publishHandle">发布</b-button>
           </div>
         </div>
         <div class="iq-card-body" data-toggle="modal" data-target="#post-modal">
@@ -34,14 +37,13 @@
                   :show-file-list="false"
                   multiple
                   :before-upload="beforeUpload"
-                  :limit="9"
                 >
                   <img src="~/assets/images/small/07.png" alt="icon" class="img-fluid" />
                   添加图片
                 </el-upload>
               </a>
             </li>
-            <li class="iq-bg-primary rounded p-2 pointer mr-3">
+            <!-- <li class="iq-bg-primary rounded p-2 pointer mr-3">
               <a href="#"></a
               ><img src="~/assets/images/small/08.png" alt="icon" class="img-fluid" />
               Tag Friend
@@ -50,8 +52,8 @@
               <a href="#"></a
               ><img src="~/assets/images/small/09.png" alt="icon" class="img-fluid" />
               Feeling/Activity
-            </li>
-            <li class="iq-bg-primary rounded p-2 pointer">
+            </li> -->
+            <!-- <li class="iq-bg-primary rounded p-2 pointer">
               <div class="iq-card-header-toolbar d-flex align-items-center">
                 <div class="dropdown">
                   <span class="dropdown-toggle" id="post-option" data-toggle="dropdown">
@@ -70,10 +72,10 @@
                   </div>
                 </div>
               </div>
-            </li>
+            </li> -->
           </ul>
           <div class="mt-3 row">
-            <div
+           <div
               class="upload-preview text-center col-3"
               v-for="(item, index) in imageUploadList"
               :key="index"
@@ -81,7 +83,7 @@
               <span class="file-item-delete" @click="removeUploadHandle(index)">×</span>
               <el-image
                 style="height: 100px"
-                :src="'http://qloen87f5.hn-bkt.clouddn.com/' + item"
+                :src="item.src"
                 alt="..."
                 fit="cover"
                 class="upload-preview-img"
@@ -121,6 +123,7 @@
                       class="form-control rounded"
                       placeholder="Write something here..."
                       style="border: none"
+                      v-model="zawaContent"
                     />
                   </form>
                 </div>
@@ -628,7 +631,9 @@
 </template>
 
 <script>
-import  md5  from "js-md5";
+import md5 from "js-md5";
+import { getQiniuAccessToken } from "~/api/upload";
+import { publishPost } from "~/api/post";
 export default {
   components: {},
   mounted() {
@@ -638,9 +643,19 @@ export default {
     this.getIndex();
   },
   methods: {
+    //发布
+    publishHandle(){
+      publishPost({
+        content: this.zawaContent,
+        image:this.imageUploadList
+      }).then((res) => {
+        console.log(res)
+      })
+    },
+
     removeUploadHandle(index) {
-      console.log(index)
-      this.imageUploadList.splice(index,1)
+      console.log(index);
+      this.imageUploadList.splice(index, 1);
     },
     //上传前图片验证
     beforeUpload(file) {
@@ -657,16 +672,31 @@ export default {
       let curr = (+new Date()).toString();
       let random = Math.random() * 10000;
       let md5Str = md5(`${curr}${random}${file.name}`);
-      this.uploadData.key = `zawa/${md5Str}.${fileType}`;
-    },
-    uploadSuccessHandle(res) {
-      this.imageUploadList.push(res.hash);
+      let key = `zawa/${md5Str}.${fileType}`;
+      this.uploadData.key = key;
+      this.imageUploadList.push({
+        key: key,
+        src:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
+      });
       console.log(this.imageUploadList);
+    },
+    //上传成功事件
+    uploadSuccessHandle(res) {
+      let key = res.key;
+      this.$nextTick(() => {
+        for (let index = 0; index < this.imageUploadList.length; index++) {
+          console.log(this.imageUploadList[index].key);
+          if (this.imageUploadList[index].key == key) {
+            this.imageUploadList[index].src =
+              "http://qloen87f5.hn-bkt.clouddn.com/" + key;
+          }
+        }
+        console.log(this.imageUploadList)
+      });
     },
     //获取七牛云上传AccessToken
     getQiniuUploadAccessToken() {
-      this.$axios.$get("/api/v1/upload/image").then((res) => {
-        console.log(res);
+      getQiniuAccessToken().then((res) => {
         this.uploadData.token = res.data;
       });
     },
@@ -701,10 +731,11 @@ export default {
   data() {
     return {
       indexData: [], //首页信息
+      zawaContent: "",
       imageUploadList: [], //上传的图片列表
       uploadData: {
+        token: "",
       },
-      uploadBox: [], //用作排序的盒子
       loading: false,
       //https://blog.csdn.net/trumangao/article/details/108713026
     };

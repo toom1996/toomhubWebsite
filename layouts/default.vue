@@ -13,7 +13,7 @@
       <News />
     </div>
     <!-- <Loader /> -->
-    <div class="wrapper">
+    <div class="wrapper" style="background: rgb(246,246,246);">
       <!-- Sidebar  -->
       <!-- <SideBarStyle1 :items="verticalMenu" :logo="logo" @toggle="sidebarMini" /> -->
       <!-- TOP Nav Bar -->

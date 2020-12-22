@@ -126,6 +126,7 @@ axios.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
     (response) => {
+        console.log('response~~~~~~~~~~')
         const res = response.data;
         console.log('res', res)
 
@@ -158,7 +159,7 @@ axios.interceptors.response.use(
         return response;
     },
     (error) => {
-
+        console.log('error~~~~~~~~~~')
         console.log('err' + error); // for debug
         return Promise.reject(error);
     }
@@ -253,7 +254,7 @@ export function put(url, data = {}) {
 }
 
 export const api = {
-    test: function(data){
-        return post('/api/v1/user/register',data)
+    test: function (data) {
+        return post('/api/v1/user/register', data)
     }
 }
