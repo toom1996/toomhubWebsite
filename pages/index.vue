@@ -10,7 +10,14 @@
             <h4 class="card-title">zawa一下</h4>
           </div>
           <div class="iq-header-title">
-            <b-button variant="outline-primary" @click="publishHandle">发布</b-button>
+            <el-button
+              type="primary"
+              :loading="buttonPublishLoading"
+              @click="publishHandle"
+              size="small"
+              round
+              >发布</el-button
+            >
           </div>
         </div>
         <div class="iq-card-body" data-toggle="modal" data-target="#post-modal">
@@ -21,6 +28,7 @@
                 class="form-control rounded"
                 placeholder="Write something here..."
                 style="border: none"
+                v-model="zawaContent"
               />
             </form>
           </div>
@@ -34,6 +42,7 @@
                   action="http://up-z2.qiniup.com/"
                   :data="uploadData"
                   :on-success="uploadSuccessHandle"
+                  
                   :show-file-list="false"
                   multiple
                   :before-upload="beforeUpload"
@@ -75,18 +84,20 @@
             </li> -->
           </ul>
           <div class="mt-3 row">
-           <div
+            <div
               class="upload-preview text-center col-3"
               v-for="(item, index) in imageUploadList"
               :key="index"
             >
               <span class="file-item-delete" @click="removeUploadHandle(index)">×</span>
               <el-image
+              v-if="item.src"
                 style="height: 100px"
                 :src="item.src"
                 alt="..."
                 fit="cover"
                 class="upload-preview-img"
+                :lazy=" true "
               />
             </div>
           </div>
@@ -123,7 +134,6 @@
                       class="form-control rounded"
                       placeholder="Write something here..."
                       style="border: none"
-                      v-model="zawaContent"
                     />
                   </form>
                 </div>
@@ -634,6 +644,7 @@
 import md5 from "js-md5";
 import { getQiniuAccessToken } from "~/api/upload";
 import { publishPost } from "~/api/post";
+import { Message } from "element-ui";
 export default {
   components: {},
   mounted() {
@@ -644,54 +655,64 @@ export default {
   },
   methods: {
     //发布
-    publishHandle(){
+    publishHandle() {
+      this.buttonPublishLoading = true;
       publishPost({
         content: this.zawaContent,
-        image:this.imageUploadList
-      }).then((res) => {
-        console.log(res)
+        image: JSON.stringify(this.imageUploadList),
       })
+        .then((res) => {
+          console.log(res);
+          this.buttonPublishLoading = false;
+        })
+        .catch((error) => {
+          this.buttonPublishLoading = false;
+        });
     },
 
     removeUploadHandle(index) {
-      console.log(index);
       this.imageUploadList.splice(index, 1);
+      console.log(this.imageUploadList)
     },
     //上传前图片验证
     beforeUpload(file) {
-      if (file.type.split("/")[0] === "image") {
-        let tempSize = (file.size / 5242880) * 4;
-        if (tempSize > 1) {
-          this.$message.error("图片尺寸不得大于20M！");
-          return false;
+      if (this.uploadData.token != "") {
+        if (file.type.split("/")[0] === "image") {
+          let tempSize = (file.size / 5242880) * 4;
+          if (tempSize > 1) {
+            this.$message.error("图片尺寸不得大于20M！");
+            return false;
+          }
         }
+        this.loading = true;
+        let tempNames = file.name.split(".");
+        let fileType = tempNames[tempNames.length - 1];
+        let curr = (+new Date()).toString();
+        let random = Math.random() * 10000;
+        let md5Str = md5(`${curr}${random}${file.name}`);
+        let key = `zawa/${md5Str}.${fileType}`;
+          this.uploadData.key = key;
+          this.imageUploadList.push({
+            key: key
+          });
+        console.log(this.imageUploadList);
       }
-      this.loading = true;
-      let tempNames = file.name.split(".");
-      let fileType = tempNames[tempNames.length - 1];
-      let curr = (+new Date()).toString();
-      let random = Math.random() * 10000;
-      let md5Str = md5(`${curr}${random}${file.name}`);
-      let key = `zawa/${md5Str}.${fileType}`;
-      this.uploadData.key = key;
-      this.imageUploadList.push({
-        key: key,
-        src:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
-      });
-      console.log(this.imageUploadList);
     },
     //上传成功事件
     uploadSuccessHandle(res) {
       let key = res.key;
       this.$nextTick(() => {
         for (let index = 0; index < this.imageUploadList.length; index++) {
-          console.log(this.imageUploadList[index].key);
           if (this.imageUploadList[index].key == key) {
-            this.imageUploadList[index].src =
-              "http://qloen87f5.hn-bkt.clouddn.com/" + key;
+            this.$set(this.imageUploadList, index, {
+              key: key,
+              src: "http://qloen87f5.hn-bkt.clouddn.com/" + key
+            })
+            // this.imageUploadList[index].src =
+            //   "http://qloen87f5.hn-bkt.clouddn.com/" + key;
           }
         }
-        console.log(this.imageUploadList)
+        console.log(this.imageUploadList);
       });
     },
     //获取七牛云上传AccessToken
@@ -727,6 +748,15 @@ export default {
         $("body").toggleClass("sidebar-main");
       });
     },
+    uploadChangeHandle(file, fileList) {
+      if (file.status == "fail") {
+        Message({
+          message: "图片上传失败",
+          type: "error",
+          duration: 3 * 1000,
+        });
+      }
+    },
   },
   data() {
     return {
@@ -737,6 +767,7 @@ export default {
         token: "",
       },
       loading: false,
+      buttonPublishLoading: false,
       //https://blog.csdn.net/trumangao/article/details/108713026
     };
   },

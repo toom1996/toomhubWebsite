@@ -159,7 +159,11 @@ axios.interceptors.response.use(
         return response;
     },
     (error) => {
-        console.log('error~~~~~~~~~~')
+        Message({
+            message: '网络异常',
+            type: 'error',
+            duration: 5 * 1000
+        });
         console.log('err' + error); // for debug
         return Promise.reject(error);
     }
